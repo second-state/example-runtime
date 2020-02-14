@@ -1,0 +1,27 @@
+[package]
+name = "example-runtime"
+version = "0.1.0"
+authors = ["Oasis Labs Inc. <info@oasislabs.com>"]
+edition = "2018"
+
+[dependencies]
+# Internal.
+example-runtime-api = { path = "./api" }
+
+# Oasis Core.
+oasis-core-runtime = { git = "https://github.com/oasislabs/oasis-core", branch = "master" }
+
+# Others.
+ed25519-dalek = "=1.0.0-pre.2"
+failure = "0.1.5"
+io-context = "0.2.0"
+
+[build-dependencies]
+oasis-core-tools = { git = "https://github.com/oasislabs/oasis-core", branch = "master" }
+
+
+[workspace]
+members = [
+    "api",
+    "client",
+]
