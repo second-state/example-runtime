@@ -12,7 +12,6 @@ example-runtime-api = { path = "./api" }
 oasis-core-runtime = { git = "https://github.com/oasislabs/oasis-core", branch = "master" }
 
 # Others.
-ed25519-dalek = "=1.0.0-pre.2"
 failure = "0.1.5"
 io-context = "0.2.0"
 

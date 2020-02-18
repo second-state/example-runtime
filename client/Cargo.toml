@@ -14,7 +14,6 @@ oasis-core-runtime = { git = "https://github.com/oasislabs/oasis-core", branch =
 
 # Others.
 clap = "2.29.1"
-ed25519-dalek = "=1.0.0-pre.2"
 tokio = "0.1.17"
 grpcio = "0.4.6"
 io-context = "0.2.0"
