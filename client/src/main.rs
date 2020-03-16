@@ -1,10 +1,10 @@
 #[macro_use]
 extern crate clap;
+extern crate example_runtime_api;
 extern crate grpcio;
 extern crate io_context;
 extern crate oasis_core_client;
 extern crate oasis_core_runtime;
-extern crate example_runtime_api;
 extern crate tokio;
 
 use std::sync::Arc;
@@ -14,13 +14,13 @@ use grpcio::EnvBuilder;
 use io_context::Context;
 use tokio::runtime::Runtime;
 
+use example_runtime_api::{with_api, KeyValue};
 use oasis_core_client::{
     create_txn_api_client,
     transaction::{Query, QueryCondition},
     Node, TxnClient,
 };
 use oasis_core_runtime::{common::runtime::RuntimeId, storage::MKVS};
-use example_runtime_api::{with_api, KeyValue};
 
 with_api! {
     create_txn_api_client!(ExampleRuntimeClient, api);

@@ -8,18 +8,15 @@ use std::sync::Arc;
 use failure::{format_err, Fallible};
 use io_context::Context as IoContext;
 
+use example_runtime_api::{with_api, KeyValue};
 use oasis_core_runtime::{
-    common::{
-        runtime::RuntimeId,
-        version::Version,
-    },
+    common::{runtime::RuntimeId, version::Version},
     rak::RAK,
     register_runtime_txn_methods, runtime_context,
     storage::StorageContext,
     transaction::{dispatcher::CheckOnlySuccess, Context as TxnContext},
-    version_from_cargo, Protocol, RpcDemux, RpcDispatcher, TxnDispatcher,
+    version_from_cargo, Protocol, RpcDemux, RpcDispatcher, TxnDispatcher, TxnMethDispatcher,
 };
-use example_runtime_api::{with_api, KeyValue};
 
 struct Context {
     test_runtime_id: RuntimeId,
@@ -86,8 +83,10 @@ fn main() {
     let init = |protocol: &Arc<Protocol>,
                 _rak: &Arc<RAK>,
                 _rpc_demux: &mut RpcDemux,
-                _rpc: &mut RpcDispatcher,
-                txn: &mut TxnDispatcher| {
+                _rpc: &mut RpcDispatcher|
+     -> Option<Box<dyn TxnDispatcher>> {
+        let mut txn = TxnMethDispatcher::new();
+
         with_api! { register_runtime_txn_methods!(txn, api); }
 
         let rt_id = protocol.get_runtime_id();
@@ -97,8 +96,10 @@ fn main() {
                 test_runtime_id: rt_id,
             })
         });
+
+        Some(Box::new(txn))
     };
 
     // Start the runtime.
-    oasis_core_runtime::start_runtime(Some(Box::new(init)), version_from_cargo!());
+    oasis_core_runtime::start_runtime(Box::new(init), version_from_cargo!());
 }
