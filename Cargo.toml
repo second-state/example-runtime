@@ -22,5 +22,5 @@ oasis-core-tools = { git = "https://github.com/oasislabs/oasis-core", branch = "
 [workspace]
 members = [
     "api",
-    "client",
+    "test-client",
 ]

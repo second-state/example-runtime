@@ -23,7 +23,7 @@ use oasis_core_client::{
 use oasis_core_runtime::{common::runtime::RuntimeId, storage::MKVS};
 
 with_api! {
-    create_txn_api_client!(ExampleRuntimeClient, api);
+    create_txn_api_client!(ExampleRuntimeTestClient, api);
 }
 
 fn main() {
@@ -50,7 +50,7 @@ fn main() {
     let env = Arc::new(EnvBuilder::new().build());
     let node = Node::new(env, node_address);
     let txn_client = TxnClient::new(node.channel(), runtime_id, None);
-    let kv_client = ExampleRuntimeClient::new(txn_client);
+    let kv_client = ExampleRuntimeTestClient::new(txn_client);
 
     // Check whether Runtime ID is also set remotely.
     let r: Option<String> = rt.block_on(kv_client.get_runtime_id(())).unwrap();
