@@ -1,8 +1,8 @@
-# Example (non-confidential) runtime for the Oasis platform
+# Example runtime for the Oasis platform
 
-This repo contains an example of a simple non-confidential runtime for the Oasis
-platform. The runtime implements a key/value store, with the interface defined
-[here](api/src/api.rs).
+This repo contains an example of a simple non-confidential runtime for the
+[Oasis platform](https://github.com/oasislabs/oasis-core). The runtime implements
+a key/value store, with the interface defined [here](api/src/api.rs).
 
 ## Directories
 
