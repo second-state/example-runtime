@@ -1,5 +1,5 @@
 [package]
-name = "example-runtime-test-client"
+name = "test-client"
 version = "0.1.0"
 authors = ["Oasis Labs Inc. <info@oasislabs.com>"]
 description = "Example runtime test client"
