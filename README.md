@@ -1,5 +1,16 @@
 # Example (non-confidential) runtime for the Oasis platform
 
+This repo contains an example of a simple non-confidential runtime for the Oasis
+platform. The runtime implements a key/value store, with the interface defined
+[here](api/src/api.rs).
+
+## Directories
+
+* `api`: The example runtime's API definition.
+* `scripts`: Bash scripts for development and testing.
+* `src`: The example runtime implemenation.
+* `test-client`: A test client that exercises the runtime's API.
+
 ## Setting up the development environment
 
 First, make sure that you have everything required for Oasis Core installed by
