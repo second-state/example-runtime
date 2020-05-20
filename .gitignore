@@ -1,1 +1,6 @@
+# Build.
 target/
+
+# Oasis Core binary symlinks or downloads.
+.oasis-core
+.runtime

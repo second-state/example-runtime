@@ -8,11 +8,8 @@ source ./scripts/common.sh
 # Oasis core binaries.
 oasis_node="${OASIS_CORE_ROOT_PATH}/go/oasis-node/oasis-node"
 oasis_runner="${OASIS_CORE_ROOT_PATH}/go/oasis-net-runner/oasis-net-runner"
-runtime_loader="${OASIS_CORE_ROOT_PATH}/target/default/debug/oasis-core-runtime-loader"
-keymanager_binary="${OASIS_CORE_ROOT_PATH}/target/default/debug/oasis-core-keymanager-runtime"
 
-# Runtime and test client binaries.
-runtime_binary="${RUNTIME_CARGO_TARGET_DIR}/debug/example-runtime"
+# Test client binary.
 test_client="${RUNTIME_CARGO_TARGET_DIR}/debug/test-client"
 
 # Prepare an empty data directory.
@@ -25,11 +22,7 @@ client_socket="${data_dir}/net-runner/network/client-0/internal.sock"
 # Run the network.
 echo "Starting the test network."
 ${oasis_runner} \
-    --net.node.binary ${oasis_node} \
-    --net.runtime.binary ${runtime_binary} \
-    --net.runtime.loader ${runtime_loader} \
-    --net.keymanager.binary ${keymanager_binary} \
-    --net.epochtime_mock \
+    --fixture.file tests/fixture.json \
     --basedir.no_temp_dir \
     --basedir ${data_dir} &
 
@@ -50,7 +43,7 @@ ${oasis_node} debug control set-epoch \
 echo "Waiting for all nodes to be registered."
 ${oasis_node} debug control wait-nodes \
     --address unix:${client_socket} \
-    --nodes 6 \
+    --nodes 5 \
     --wait
 
 # Advance epoch.

@@ -1,13 +1,10 @@
 #!/usr/bin/env gmake
 
 # Oasis Core binary base path.
-OASIS_CORE_ROOT_PATH ?= .oasis-core
+OASIS_CORE_ROOT_PATH := .oasis-core
 
 # Runtime binary base path.
 RUNTIME_ROOT_PATH ?= .runtime
-
-# oasis-core cargo target directory.
-OASIS_CARGO_TARGET_DIR := $(if $(CARGO_TARGET_DIR),$(CARGO_TARGET_DIR),$(OASIS_CORE_ROOT_PATH)/target)
 
 # Runtime cargo target directory.
 RUNTIME_CARGO_TARGET_DIR := $(if $(CARGO_TARGET_DIR),$(CARGO_TARGET_DIR),target)/default
@@ -42,7 +39,7 @@ endif
 .PHONY: \
 	all \
 	check check-tools check-oasis-core \
-	symlink-artifacts \
+	download-artifacts \
 	runtime test-client \
 	genesis-update \
 	clean clean-test-e2e \
@@ -63,14 +60,18 @@ check-tools:
 check-oasis-core:
 	@test -x $(OASIS_CORE_ROOT_PATH)/go/oasis-node/oasis-node || ( \
 		$(ECHO) "$(RED)error:$(OFF) oasis-node not found in $(OASIS_CORE_ROOT_PATH) (check OASIS_CORE_ROOT_PATH)" && \
-		$(ECHO) "       Maybe you need to run \"make symlink-artifacts\"?" && \
+		$(ECHO) "       Maybe you need to run \"make download-artifacts\"?" && \
 		exit 1 \
 	)
 
+download-artifacts:
+	@$(ECHO) "$(CYAN)*** Downloading Oasis Core release artifacts...$(OFF)"
+	@scripts/download_artifacts.sh "$(OASIS_CORE_ROOT_PATH)"
+	@$(ECHO) "$(CYAN)*** Downloading done!$(OFF)"
+
 symlink-artifacts:
-	@$(ECHO) "$(CYAN)*** Symlinking Oasis Core build artifacts...$(OFF)"
-	@export OASIS_CARGO_TARGET_DIR=$(OASIS_CARGO_TARGET_DIR) && \
-		scripts/symlink_artifacts.sh "$(OASIS_CORE_ROOT_PATH)" "$(OASIS_CORE_SRC_PATH)" "$(RUNTIME_ROOT_PATH)" $$(pwd)
+	@$(ECHO) "$(CYAN)*** Symlinking runtime build artifacts...$(OFF)"
+	@scripts/symlink_artifact.sh "$(RUNTIME_ROOT_PATH)" example-runtime "$(RUNTIME_CARGO_TARGET_DIR)/debug"
 	@$(ECHO) "$(CYAN)*** Symlinking done!$(OFF)"
 
 runtime:
@@ -87,7 +88,7 @@ test-unit: check-oasis-core
 	@$(ECHO) "$(CYAN)*** Running unit tests...$(OFF)"
 	@cargo test
 
-test-e2e: check-oasis-core
+test-e2e: check-oasis-core symlink-artifacts
 	@$(ECHO) "$(CYAN)*** Running E2E tests...$(OFF)"
 	@export OASIS_CORE_ROOT_PATH=$(OASIS_CORE_ROOT_PATH) RUNTIME_CARGO_TARGET_DIR=$(RUNTIME_CARGO_TARGET_DIR) && \
 		scripts/test_e2e.sh
