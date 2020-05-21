@@ -4,6 +4,7 @@ oasis_core_root_path=$1
 
 set -euo pipefail
 
+# Download oasis-core binaries from a GitHub release.
 download_oasis_core_artifacts() {
 	local out_dir=$1
 

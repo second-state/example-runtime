@@ -10,6 +10,7 @@ a key/value store, with the interface defined [here](api/src/api.rs).
 * `scripts`: Bash scripts for development and testing.
 * `src`: The example runtime implemenation.
 * `test-client`: A test client that exercises the runtime's API.
+* `tests`: Resources used in end-to-end tests.
 
 ## Setting up the development environment
 

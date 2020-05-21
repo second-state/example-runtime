@@ -4,7 +4,7 @@
 OASIS_CORE_ROOT_PATH := .oasis-core
 
 # Runtime binary base path.
-RUNTIME_ROOT_PATH ?= .runtime
+RUNTIME_ROOT_PATH := .runtime
 
 # Runtime cargo target directory.
 RUNTIME_CARGO_TARGET_DIR := $(if $(CARGO_TARGET_DIR),$(CARGO_TARGET_DIR),target)/default
