@@ -330,7 +330,7 @@ dependencies = [
 [[package]]
 name = "deoxysii"
 version = "0.2.0"
-source = "git+https://github.com/oasislabs/deoxysii-rust#b681c78985905a0708ce0ffd5ea704bc11942f14"
+source = "git+https://github.com/oasislabs/deoxysii-rust#4e3accadf2c83783036cce72ed1b9795e907d80f"
 dependencies = [
  "failure 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "subtle 2.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
