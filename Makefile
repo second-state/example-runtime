@@ -38,7 +38,7 @@ endif
 
 .PHONY: \
 	all \
-	check check-tools check-oasis-core \
+	check check-oasis-core \
 	download-artifacts \
 	runtime test-client \
 	genesis-update \
@@ -46,16 +46,10 @@ endif
 	fmt \
 	test test-unit test-e2e
 
-all: check-tools runtime test-client
+all: runtime test-client
 	@$(ECHO) "$(CYAN)*** Everything built successfully!$(OFF)"
 
-check: check-tools check-oasis-core
-
-check-tools:
-	@which cargo-elf2sgxs >/dev/null || ( \
-		$(ECHO) "$(RED)error:$(OFF) oasis-core-tools not installed (or not in PATH)" && \
-		exit 1 \
-	)
+check: check-oasis-core
 
 check-oasis-core:
 	@test -x $(OASIS_CORE_ROOT_PATH)/go/oasis-node/oasis-node || ( \
