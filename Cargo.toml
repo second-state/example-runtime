@@ -15,6 +15,16 @@ oasis-core-runtime = { git = "https://github.com/oasislabs/oasis-core", tag = "v
 failure = "0.1.5"
 io-context = "0.2.0"
 
+# Openethereum.
+common-types = { git = "https://github.com/openethereum/openethereum.git" }
+ethcore = { git = "https://github.com/openethereum/openethereum.git" }
+ethkey = { git = "https://github.com/openethereum/openethereum.git" }
+ethereum-types = { version = "0.3", default-features = false, features = ["std", "serialize"] }
+
+# Parity.
+hash-db = "0.15.0"
+keccak-hash = "0.5.0"
+
 [build-dependencies]
 oasis-core-tools = { git = "https://github.com/oasislabs/oasis-core", tag = "v20.6" }
 
